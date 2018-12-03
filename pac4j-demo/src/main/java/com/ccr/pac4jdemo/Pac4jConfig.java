@@ -24,7 +24,7 @@ public class Pac4jConfig {
         final FormClient formClient = new FormClient("http://localhost:8080/loginForm", new SimpleTestUsernamePasswordAuthenticator());
 
         // basic auth
-        final Clients clients = new Clients("http://localhost:8080/index", formClient);
+        final Clients clients = new Clients("http://localhost:8080/callback", formClient);
 
         final Config config = new Config(clients);
 

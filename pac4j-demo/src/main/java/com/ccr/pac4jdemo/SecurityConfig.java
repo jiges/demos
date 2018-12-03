@@ -13,8 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
-//@Import({ComponentConfig.class, AnnotationConfig.class})
-//@ComponentScan(basePackages = "org.pac4j.springframework.web")
+@Import({ComponentConfig.class, AnnotationConfig.class})
+@ComponentScan(basePackages = "org.pac4j.springframework.web")
 public class SecurityConfig implements WebMvcConfigurer {
     @Autowired
     private Config config;
@@ -26,7 +26,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(new SecurityInterceptor(config, "FacebookClient")).addPathPatterns("/facebookadmin/*");
 //        registry.addInterceptor(new SecurityInterceptor(config, "FacebookClient", "custom")).addPathPatterns("/facebookcustom/*");
 //        registry.addInterceptor(new SecurityInterceptor(config, "TwitterClient,FacebookClient")).addPathPatterns("/twitter/*");
-        registry.addInterceptor(new SecurityInterceptor(config, "FormClient")).addPathPatterns("/form/*");
+        registry.addInterceptor(new SecurityInterceptor(config, "FormClient")).addPathPatterns("/*").excludePathPatterns("/loginForm","/callback");
 //        registry.addInterceptor(new SecurityInterceptor(config, "IndirectBasicAuthClient")).addPathPatterns("/basicauth/*");
 //        registry.addInterceptor(new SecurityInterceptor(config, "CasClient")).addPathPatterns("/cas/*");
 //        registry.addInterceptor(new SecurityInterceptor(config, "SAML2Client")).addPathPatterns("/saml/*");
