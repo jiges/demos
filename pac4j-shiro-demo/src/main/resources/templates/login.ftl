@@ -32,7 +32,7 @@
 
                 <div class="wrap-input100 validate-input" data-validate="请输入密码">
                     <span class="label-input100">密码</span>
-                    <input class="input100" type="password" name="pass" placeholder="请输入密码">
+                    <input class="input100" type="password" name="password" placeholder="请输入密码">
                     <span class="focus-input100" data-symbol="&#xf190;"></span>
                 </div>
 
