@@ -25,6 +25,16 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/form/index")
+    public String formIndex(){
+        return "redirect:/protected/index";
+    }
+
+    @RequestMapping("/github/index")
+    public String githubIndex(){
+        return "redirect:/protected/index";
+    }
+
     @RequestMapping("/protected/permission")
     public String permission(Model model){
         List<CommonProfile> profiles = profileManager.getAll(true);

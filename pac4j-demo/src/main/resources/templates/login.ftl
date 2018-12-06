@@ -21,9 +21,9 @@
 <div class="limiter">
     <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form action="/callback?client_name=FormClient" class="login100-form validate-form">
+            <form method="post" action="/callback" class="login100-form validate-form">
                 <span class="login100-form-title p-b-49">登录</span>
-
+                <input type="hidden" name="client_name" value="FormClient">
                 <div class="wrap-input100 validate-input m-b-23" data-validate="请输入用户名">
                     <span class="label-input100">用户名</span>
                     <input class="input100" type="text" name="username" placeholder="请输入用户名" autocomplete="off">
@@ -52,8 +52,8 @@
                 </div>
 
                 <div class="flex-c-m">
-                    <a href="#" class="login100-social-item bg1">
-                        <i class="fa fa-wechat"></i>
+                    <a href="/github/index" class="login100-social-item bg1">
+                        <i class="fa fa-github"></i>
                     </a>
 
                     <a href="#" class="login100-social-item bg2">

@@ -10,6 +10,8 @@ import org.pac4j.http.client.direct.ParameterClient;
 import org.pac4j.http.client.indirect.FormClient;
 import org.pac4j.http.client.indirect.IndirectBasicAuthClient;
 import org.pac4j.http.credentials.authenticator.test.SimpleTestUsernamePasswordAuthenticator;
+import org.pac4j.oauth.client.GitHubClient;
+import org.pac4j.oauth.client.QQClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +24,8 @@ import java.io.File;
 @Configuration
 public class Pac4jConfig {
 
-    @Value("${pac4j.salt}")
-    private String salt;
+//    @Value("${pac4j.salt}")
+//    private String salt;
 
     @Autowired
     RoleAdminAuthGenerator roleAdminAuthGenerator;
@@ -85,8 +87,11 @@ public class Pac4jConfig {
 
         final FormClient formClient = new FormClient("http://localhost:8080/login",myAuthenticator);
 
+        final GitHubClient gitHubClient = new GitHubClient("818cb9cfe2c59afd282c","1891de9148c5b7f8e59ed40d942745c730fd1124");
+        final QQClient qqClient = new QQClient("818cb9cfe2c59afd282c","1891de9148c5b7f8e59ed40d942745c730fd1124");
+
         // basic auth
-        final Clients clients = new Clients("http://localhost:8080/callback", formClient);
+        final Clients clients = new Clients("http://localhost:8080/callback", formClient,gitHubClient);
         clients.addAuthorizationGenerator(roleAdminAuthGenerator);
 
         final Config config = new Config(clients);

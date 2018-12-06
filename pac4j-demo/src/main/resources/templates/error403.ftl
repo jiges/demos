@@ -2,6 +2,6 @@
 <body>
 <h1>forbidden</h1>
 <br />
-<a href="/">Home</a>
+<a href="/index">Home</a>
 </body>
 </html>

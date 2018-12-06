@@ -31,7 +31,9 @@ public class SecurityConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(new SecurityInterceptor(config, "CasClient")).addPathPatterns("/cas/*");
 //        registry.addInterceptor(new SecurityInterceptor(config, "SAML2Client")).addPathPatterns("/saml/*");
 //        registry.addInterceptor(new SecurityInterceptor(config, "GoogleOidcClient")).addPathPatterns("/oidc/*");
+        //所有受保护的资源都必须进过这个拦截求，默认跳转form登录
         registry.addInterceptor(new SecurityInterceptor(config,"FormClient","custom")).addPathPatterns("/protected/*");
+        registry.addInterceptor(new SecurityInterceptor(config,"GitHubClient")).addPathPatterns("/github/*");
 //        registry.addInterceptor(new SecurityInterceptor(config, "DirectBasicAuthClient,ParameterClient")).addPathPatterns("/dba/*");
 //        registry.addInterceptor(new SecurityInterceptor(config, "ParameterClient")).addPathPatterns("/rest-jwt/*");
     }
