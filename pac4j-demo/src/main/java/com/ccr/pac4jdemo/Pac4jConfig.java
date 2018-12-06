@@ -10,6 +10,7 @@ import org.pac4j.http.client.direct.ParameterClient;
 import org.pac4j.http.client.indirect.FormClient;
 import org.pac4j.http.client.indirect.IndirectBasicAuthClient;
 import org.pac4j.http.credentials.authenticator.test.SimpleTestUsernamePasswordAuthenticator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,12 @@ public class Pac4jConfig {
 
     @Value("${pac4j.salt}")
     private String salt;
+
+    @Autowired
+    RoleAdminAuthGenerator roleAdminAuthGenerator;
+
+    @Autowired
+    MyAuthenticator myAuthenticator;
 
     @Bean
     public Config config() {
@@ -76,10 +83,11 @@ public class Pac4jConfig {
         config.addAuthorizer("admin", new RequireAnyRoleAuthorizer("ROLE_ADMIN"));
         config.addAuthorizer("custom", new CustomAuthorizer());*/
 
-        final FormClient formClient = new FormClient("http://localhost:8080/loginForm", new SimpleTestUsernamePasswordAuthenticator());
+        final FormClient formClient = new FormClient("http://localhost:8080/login",myAuthenticator);
 
         // basic auth
         final Clients clients = new Clients("http://localhost:8080/callback", formClient);
+        clients.addAuthorizationGenerator(roleAdminAuthGenerator);
 
         final Config config = new Config(clients);
 

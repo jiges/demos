@@ -1,5 +1,6 @@
 package com.ccr.pac4jdemo;
 
+import lombok.extern.slf4j.Slf4j;
 import org.pac4j.core.authorization.authorizer.ProfileAuthorizer;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.exception.HttpAction;
@@ -8,6 +9,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
+@Slf4j
 public class CustomAuthorizer extends ProfileAuthorizer<CommonProfile> {
 
     @Override
@@ -20,6 +22,7 @@ public class CustomAuthorizer extends ProfileAuthorizer<CommonProfile> {
         if (profile == null) {
             return false;
         }
-        return StringUtils.startsWithIgnoreCase(profile.getUsername(), "jle");
+        log.info(context.getPath());
+        return profile.getPermissions().contains(context.getPath());
     }
 }
