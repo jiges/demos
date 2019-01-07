@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
+ * 220M文件拷贝，需要77478ms
  * @author ccr12312@163.com at 2019-1-3
  */
 public class TransferToCopy {

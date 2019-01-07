@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * 正常的文件拷贝
+ * 正常的文件拷贝，220M文件拷贝，需要83297ms
  * @author ccr12312@163.com at 2019-1-2
  */
 public class NormalCopy {

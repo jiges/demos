@@ -61,9 +61,13 @@ public class CopyClient {
                         System.out.println("read bytes :" + readSize);
                         System.out.println("totalSize :" + totalSize);
                         System.out.println("耗时: " + (System.currentTimeMillis() - nano));
-//                    buffer.flip();
-//                    System.out.println("写入本地磁盘:" + channel1.write(buffer));
-//                    channel1.position(buffer.limit());
+
+                        buffer.flip();
+                        while (buffer.hasRemaining()) {
+                            System.out.println("写入本地磁盘:" + channel1.write(buffer));
+                            System.out.println("文件指针:" + channel1.position());
+                        }
+
                     } else {
                         channel.close();
                     }
