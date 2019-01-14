@@ -1,17 +1,19 @@
 package com.ccr.message;
 
+import java.io.Serializable;
+
 /**
  * @author ccr12312@163.com at 2019-1-10
  */
-public class Request {
-    enum RequestType {
-        SET_USER_NAME
+public class Request implements Serializable {
+    public enum RequestType {
+        SET_USER_NAME,
+        SHOW_ALL_USER
     }
 
     private RequestType type;
 
     private String content;
-
 
     public Request(RequestType type, String content) {
         this.type = type;
@@ -32,5 +34,13 @@ public class Request {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "type=" + type +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

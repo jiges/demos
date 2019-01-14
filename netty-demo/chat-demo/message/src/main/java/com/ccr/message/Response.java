@@ -1,9 +1,11 @@
 package com.ccr.message;
 
+import java.io.Serializable;
+
 /**
  * @author ccr12312@163.com at 2019-1-10
  */
-public class Response {
+public class Response implements Serializable {
 
     private int code;
 
@@ -28,5 +30,13 @@ public class Response {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                '}';
     }
 }
