@@ -11,6 +11,7 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class ChannelGroupHandler extends ChannelInboundHandlerAdapter {
         System.out.println("Server ChannelGroupHandler.channelRead " + msg);
         if(msg instanceof Message) {
             Message message = (Message) msg;
-            ChannelMatcher matcher = new SimpleChannelMatcher(Collections.singletonList(message.getReceiver()));
+            ChannelMatcher matcher = new SimpleChannelMatcher(Arrays.asList(message.getReceiver().split(",")));
             channels.writeAndFlush(message.getContent(),matcher);
         }
     }
@@ -47,7 +48,7 @@ public class ChannelGroupHandler extends ChannelInboundHandlerAdapter {
             }
 
             if(event.equals("SHOW_ALL_USER")) {
-                String channelNames = channels.stream().map(x -> x.attr(AttributeKey.valueOf("name")).get().toString()).collect(Collectors.joining());
+                String channelNames = channels.stream().map(x -> x.attr(AttributeKey.valueOf("name")).get().toString()).collect(Collectors.joining(","));
                 System.out.println(channels);
                 System.out.println(channelNames);
                 ctx.writeAndFlush(channelNames);
