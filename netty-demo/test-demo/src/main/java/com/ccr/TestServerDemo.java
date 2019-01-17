@@ -1,10 +1,13 @@
 package com.ccr;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.concurrent.DefaultEventExecutorGroup;
+import io.netty.util.concurrent.EventExecutorGroup;
 
 import java.net.SocketAddress;
 
@@ -16,6 +19,7 @@ public class TestServerDemo {
     public static void main(String[] args) throws InterruptedException {
         EventLoopGroup boss = new NioEventLoopGroup(1);
         EventLoopGroup worker = new NioEventLoopGroup();
+        EventExecutorGroup business = new DefaultEventExecutorGroup(1);
 
         ServerBootstrap bootstrap = new ServerBootstrap();
         try {
@@ -25,6 +29,12 @@ public class TestServerDemo {
                     .childHandler(new ChannelInitializer<Channel>() {
                         @Override
                         protected void initChannel(Channel ch) throws Exception {
+                            ch.pipeline().addFirst(business, new SimpleChannelInboundHandler<ByteBuf>() {
+                                @Override
+                                protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
+                                    //复杂的、阻塞的、耗时的业务逻辑
+                                }
+                            });
                             ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
                                 @Override
                                 public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
