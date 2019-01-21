@@ -1,0 +1,53 @@
+package com.ccr.ssl;
+
+import io.netty.buffer.Unpooled;
+import io.netty.channel.*;
+import io.netty.handler.codec.http.*;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.ssl.OptionalSslHandler;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslHandler;
+import io.netty.util.CharsetUtil;
+
+import javax.net.ssl.SSLEngine;
+
+
+/**
+ * @author ccr12312@163.com at 2019-1-21
+ */
+public class SSLChannelInitializer extends ChannelInitializer<Channel> {
+
+    private final SslContext sslContext;
+
+    private final boolean startTls;
+
+    public SSLChannelInitializer(SslContext sslContext, boolean startTls) {
+        this.sslContext = sslContext;
+        this.startTls = startTls;
+    }
+
+    @Override
+    protected void initChannel(Channel ch) throws Exception {
+//        SSLEngine engine = sslContext.newEngine(ch.alloc());
+        ch.pipeline().addLast(new LoggingHandler( LogLevel.INFO));
+        ch.pipeline().addLast(new OptionalSslHandler(sslContext));
+//        ch.pipeline().addLast("ssl",new SslHandler(engine,startTls));
+        ch.pipeline().addLast("codec",new HttpServerCodec());
+        ch.pipeline().addLast("aggregator",new HttpObjectAggregator(512 * 1024));
+        ch.pipeline().addLast(new SimpleChannelInboundHandler<FullHttpRequest>() {
+            @Override
+            protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest msg) throws Exception {
+                System.out.println(msg.uri());
+                System.out.println(msg.headers());
+
+                HttpResponse response = new DefaultHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK);
+                response.headers().add(HttpHeaderNames.CONTENT_TYPE,"text/plain; charset=UTF-8");
+                response.headers().add(HttpHeaderNames.CONNECTION,"keep-alive");
+                ctx.write(response);
+                ctx.write(Unpooled.copiedBuffer("hello", CharsetUtil.UTF_8));
+                ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT).addListener(ChannelFutureListener.CLOSE);
+            }
+        });
+    }
+}
