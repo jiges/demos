@@ -3,20 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>demos</artifactId>
+        <artifactId>netty-demo</artifactId>
         <groupId>com.ccr</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>netty-demo</artifactId>
+    <artifactId>file-transfer-demo</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>echo-demo</module>
-        <module>chat-demo</module>
-        <module>test-demo</module>
-        <module>file-transfer-demo</module>
-        <module>ssl-demo</module>
+        <module>transfer-server</module>
     </modules>
 
 
