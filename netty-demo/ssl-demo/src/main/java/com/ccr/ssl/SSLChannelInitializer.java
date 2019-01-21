@@ -42,11 +42,20 @@ public class SSLChannelInitializer extends ChannelInitializer<Channel> {
                 System.out.println(msg.headers());
 
                 HttpResponse response = new DefaultHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK);
-                response.headers().add(HttpHeaderNames.CONTENT_TYPE,"text/plain; charset=UTF-8");
-                response.headers().add(HttpHeaderNames.CONNECTION,"keep-alive");
+                response.headers().set(HttpHeaderNames.CONTENT_TYPE,HttpHeaderValues.TEXT_PLAIN);
+                //如果不加CONTENT_LENGTH，会导致浏览器一直处于pending状态
+                response.headers().set(HttpHeaderNames.CONTENT_LENGTH,"hello".getBytes().length);
+                if(HttpUtil.isKeepAlive(msg)) {
+                    response.headers().set(HttpHeaderNames.CONNECTION,HttpHeaderValues.CLOSE);
+                }
                 ctx.write(response);
                 ctx.write(Unpooled.copiedBuffer("hello", CharsetUtil.UTF_8));
-                ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT).addListener(ChannelFutureListener.CLOSE);
+                ChannelFuture lastFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
+
+                if (!HttpUtil.isKeepAlive(msg)) {
+                    // Close the connection when the whole content is written out.
+                    lastFuture.addListener(ChannelFutureListener.CLOSE);
+                }
             }
         });
     }
