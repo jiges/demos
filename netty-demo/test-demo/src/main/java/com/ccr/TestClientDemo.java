@@ -1,6 +1,7 @@
 package com.ccr;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -41,11 +42,11 @@ public class TestClientDemo {
                                 @Override
                                 public void channelActive(ChannelHandlerContext ctx) throws Exception {
                                     System.out.println("channelActive...");
-                                    ChannelFuture future1 = ctx.channel().writeAndFlush(Unpooled.copiedBuffer("hello", CharsetUtil.UTF_8));
+                                    ChannelFuture future1 = ctx.channel().write(Unpooled.copiedBuffer("hello", CharsetUtil.UTF_8));
                                     future1.addListener(new ChannelFutureListener() {
                                         @Override
                                         public void operationComplete(ChannelFuture future) throws Exception {
-                                            System.out.println(future.isSuccess());
+                                            System.out.println("是否发送成功：" + future.isSuccess());
                                             if(!future.isSuccess()) {
                                                 future.cause().printStackTrace();
                                             }
@@ -63,6 +64,16 @@ public class TestClientDemo {
                                 @Override
                                 public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
                                     System.out.println("channelRead...");
+                                    System.out.println(msg);
+                                    if(msg instanceof ByteBuf) {
+                                        ByteBuf message = (ByteBuf) msg;
+                                        String m = message.toString(CharsetUtil.UTF_8);
+                                        if(m.equals("hello")) {
+                                            System.out.println(m);
+                                            ctx.channel().flush();
+                                        }
+                                    }
+
                                     super.channelRead(ctx, msg);
                                 }
 

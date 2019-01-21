@@ -2,10 +2,12 @@ package com.ccr;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
 import io.netty.util.concurrent.EventExecutorGroup;
 
@@ -35,7 +37,7 @@ public class TestServerDemo {
                                     //复杂的、阻塞的、耗时的业务逻辑
                                 }
                             });
-                            ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+                            ch.pipeline().addLast(business,new ChannelInboundHandlerAdapter() {
                                 @Override
                                 public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
                                     System.out.println("ChannelInboundHandlerAdapter channel registered...");
@@ -51,6 +53,9 @@ public class TestServerDemo {
                                 @Override
                                 public void channelActive(ChannelHandlerContext ctx) throws Exception {
                                     System.out.println("ChannelInboundHandlerAdapter channelActive...");
+                                    Thread.sleep(10000);
+
+                                    ctx.channel().writeAndFlush(Unpooled.copiedBuffer("hello", CharsetUtil.UTF_8));
                                     super.channelActive(ctx);
                                 }
 
