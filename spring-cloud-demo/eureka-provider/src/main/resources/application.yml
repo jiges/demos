@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: service-hi
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
+
+---
+spring:
+     profiles: service1
+
+server:
+  port: 7761
+
+---
+spring:
+  profiles: service2
+
+server:
+  port: 7762

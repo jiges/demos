@@ -14,6 +14,7 @@
         <module>pac4j-demo</module>
         <module>netty-demo</module>
         <module>nio-demo</module>
+        <module>spring-cloud-demo</module>
     </modules>
 
 

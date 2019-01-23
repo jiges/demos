@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: discovery_cluster
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
+---
+spring:
+  profiles: eureka1
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: eureka1
+
+---
+spring:
+  profiles: eureka2
+server:
+  port: 8762
+
+eureka:
+  instance:
+    hostname: eureka2
+
+---
+spring:
+  profiles: eureka3
+server:
+  port: 8763
+
+eureka:
+  instance:
+    hostname: eureka3
