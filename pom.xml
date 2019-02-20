@@ -15,6 +15,7 @@
         <module>netty-demo</module>
         <module>nio-demo</module>
         <module>spring-cloud-demo</module>
+        <module>statemachine-demo</module>
     </modules>
 
 
