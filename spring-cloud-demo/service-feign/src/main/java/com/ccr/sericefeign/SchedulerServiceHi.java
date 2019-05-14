@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author ccr12312@163.com at 2019-2-25
  */
 @FeignClient(value = "service-hi")
-public interface SchedulaServiceHi {
+public interface SchedulerServiceHi {
 
     @RequestMapping(value = "/hi",method = RequestMethod.GET)
     String sayHiFromClientOne(@RequestParam(value = "name") String name);
