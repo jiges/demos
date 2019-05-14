@@ -14,11 +14,11 @@ public class HiController {
 
     //编译器报错，无视。 因为这个Bean是在程序启动的时候注入的，编译器感知不到，所以报错。
     @Autowired
-    SchedualServiceHi schedualServiceHi;
+    SchedulaServiceHi schedulaServiceHi;
 
     @GetMapping(value = "/hi")
     public String sayHi(@RequestParam String name) {
-        return schedualServiceHi.sayHiFromClientOne( name );
+        return schedulaServiceHi.sayHiFromClientOne( name );
     }
 
 }
