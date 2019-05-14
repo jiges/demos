@@ -3,6 +3,9 @@ spring:
     name: discovery_cluster
 eureka:
   client:
+    ## eureka-server不需要注册自己也不需要拉取注册中心的数据
+    registerWithEureka: false
+    fetchRegistry: false
     serviceUrl:
       defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
 ---
