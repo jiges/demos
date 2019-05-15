@@ -20,7 +20,16 @@ public class SimpleService {
         return restTemplate.getForObject("http://SERVICE-HI/hi?name=" + name,String.class);
     }
 
+    @HystrixCommand(fallbackMethod = "helloError")
+    public String getHelloInfo() {
+        return restTemplate.getForObject("http://SERVICE-HI/hello",String.class);
+    }
+
     public String hiError(String name) {
         return "hi,"+name+",sorry,error!";
+    }
+
+    public String helloError() {
+        return "hello server is disabled,sorry,error!";
     }
 }

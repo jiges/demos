@@ -18,4 +18,9 @@ public class HelloController {
     public String hi(@RequestParam String name) {
         return simpleService.getInfo(name);
     }
+
+    @GetMapping(value = "/hello")
+    public String hello() {
+        return simpleService.getHelloInfo();
+    }
 }

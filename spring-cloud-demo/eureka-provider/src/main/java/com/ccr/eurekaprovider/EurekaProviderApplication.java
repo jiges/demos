@@ -25,5 +25,17 @@ public class EurekaProviderApplication {
         return "hi " + name + " ,i am from port:" + port;
     }
 
+    @RequestMapping("/hello")
+    public String sleep() {
+        //配合客户端熔断功能的测试，模拟阻塞的情况
+        System.out.println("sleeping..");
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "I'v waked up...";
+    }
+
 }
 
