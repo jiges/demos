@@ -16,6 +16,7 @@
         <module>eureka-server</module>
         <module>eureka-provider</module>
         <module>service-feign</module>
+        <module>service-zuul</module>
     </modules>
 
     <!--替代Parent的方式-->
@@ -46,7 +47,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
-        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <!--<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>-->
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
     </properties>
 
     <build>
