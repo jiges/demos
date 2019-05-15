@@ -18,11 +18,13 @@ public class HiController {
 
     @GetMapping(value = "/hi")
     public String sayHi(@RequestParam String name) {
+        System.out.println("calling feign service...");
         return schedulerServiceHi.hi( name );
     }
 
     @GetMapping(value = "/hello")
     public String sayHi() {
+        System.out.println("calling feign service...");
         return schedulerServiceHi.hello();
     }
 

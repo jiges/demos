@@ -1,0 +1,19 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
+server:
+  port: 6964
+spring:
+  application:
+    name: service_zuul
+
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**
+      serviceId: eureka_consumer
+    api-b:
+      path: /api-b/**
+      serviceId: service_feign
+

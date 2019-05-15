@@ -16,11 +16,13 @@ public class HelloController {
 
     @GetMapping(value = "/hi")
     public String hi(@RequestParam String name) {
+        System.out.println("calling eureka service...");
         return simpleService.getInfo(name);
     }
 
     @GetMapping(value = "/hello")
     public String hello() {
+        System.out.println("calling eureka service...");
         return simpleService.getHelloInfo();
     }
 }
