@@ -18,7 +18,12 @@ public class HiController {
 
     @GetMapping(value = "/hi")
     public String sayHi(@RequestParam String name) {
-        return schedulerServiceHi.sayHiFromClientOne( name );
+        return schedulerServiceHi.hi( name );
+    }
+
+    @GetMapping(value = "/hello")
+    public String sayHi() {
+        return schedulerServiceHi.hello();
     }
 
 }
