@@ -17,6 +17,7 @@
         <module>eureka-provider</module>
         <module>service-feign</module>
         <module>service-zuul</module>
+        <module>hystrix-demo</module>
     </modules>
 
     <!--替代Parent的方式-->
